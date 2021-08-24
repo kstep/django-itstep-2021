@@ -20,7 +20,7 @@ import app.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('length/', app.views.length),
+    path('len/', app.views.length),
 
     path('create-student/',
          app.views.create_student),
