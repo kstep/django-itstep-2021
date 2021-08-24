@@ -8,5 +8,6 @@ class Student(models.Model):
         max_length=200)
     group = models.IntegerField()
     birthday = models.DateField()
+    last_name = models.CharField(max_length=200)
 
 
