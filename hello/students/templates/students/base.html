@@ -9,6 +9,8 @@
 <body>
 
     <header>
+        <a href="/"><img id="logo" src="{% static 'students/logo.png' %}" /></a>
+
         {% block header %}
         {% if not user.is_authenticated %}
         <a href="{% url 'login' %}">
