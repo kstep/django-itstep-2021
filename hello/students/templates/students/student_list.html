@@ -3,23 +3,27 @@
 {% block title %}List of students{% endblock %}
 
 {% block content %}
-<a href="{% url 'student-list' %}">
+<menu>
+<li><a href="{% url 'student-list' %}">
     All students
-</a>
-&nbsp;
+</a></li>
 {% if perms.students.add_student %}
-<a href="{% url 'student-create' %}">
+<li><a href="{% url 'student-create' %}">
     Create new student
-</a>
+</a></li>
 {% endif %}
+</menu>
 
 <table>
+    <thead>
     <tr>
-        <td>Name</td>
-        <td>Group</td>
-        <td>Birthday</td>
+        <th>Name</th>
+        <th>Group</th>
+        <th>Birthday</th>
     </tr>
+    </thead>
 
+    <tbody>
     {% for student in object_list %}
     <tr>
         <td><a href="{{ student.url }}">{{ student.full_name }}</a></td>
@@ -27,5 +31,6 @@
         <td>{{ student.birthday }}</td>
     </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

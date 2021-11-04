@@ -3,15 +3,16 @@
 {% block title %}Student {{ object.full_name }}{% endblock %}
 
 {% block content %}
-<a href="{% url 'student-list' %}">
+<menu>
+<li><a href="{% url 'student-list' %}">
     All students
-</a>
-&nbsp;
+</a></li>
 {% if perms.students.change_student %}
-<a href="{% url 'student-update' object.pk %}">
+<li><a href="{% url 'student-update' object.pk %}">
     Edit student
-</a>
+</a></li>
 {% endif %}
+</menu>
 
 <dl>
     <dt>Name</dt>

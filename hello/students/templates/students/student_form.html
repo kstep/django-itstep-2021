@@ -3,15 +3,16 @@
 {% block title %}Edit student {{ object.full_name }}{% endblock %}
 
 {% block content %}
-<a href="{% url 'student-list' %}">
+<menu>
+<li><a href="{% url 'student-list' %}">
     All students
-</a>
-&nbsp;
+</a></li>
 {% if object.pk %}
-<a href="{% url 'student-detail' object.pk %}">
+<li><a href="{% url 'student-detail' object.pk %}">
     Show student
-</a>
+</a></li>
 {% endif %}
+</menu>
 
 <form method="POST">
     {% csrf_token %}
