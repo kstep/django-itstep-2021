@@ -1,0 +1,29 @@
+{% extends "./base.html" %}
+
+{% block title %}List of students{% endblock %}
+
+{% block content %}
+<a href="{% url 'student-list' %}">
+    All students
+</a>
+&nbsp;
+<a href="{% url 'student-create' %}">
+    Create new student
+</a>
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Group</td>
+        <td>Birthday</td>
+    </tr>
+
+    {% for student in object_list %}
+    <tr>
+        <td><a href="{{ student.url }}">{{ student.full_name }}</a></td>
+        <td>{{ student.group }}</td>
+        <td>{{ student.birthday }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

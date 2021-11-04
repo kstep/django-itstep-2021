@@ -1,0 +1,24 @@
+{% extends "./base.html" %}
+
+{% block title %}Student {{ object.full_name }}{% endblock %}
+
+{% block content %}
+<a href="{% url 'student-list' %}">
+    All students
+</a>
+&nbsp;
+<a href="{% url 'student-update' object.pk %}">
+    Edit student
+</a>
+
+<dl>
+    <dt>Name</dt>
+    <dd>{{ object.full_name }}</dd>
+
+    <dt>Birthday</dt>
+    <dd>{{ object.birthday|date:"j F Y" }}</dd>
+
+    <dt>Group</dt>
+    <dd>{{ object.group.name }}</dd>
+</dl>
+{% endblock %}
