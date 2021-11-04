@@ -1,5 +1,4 @@
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from .models import Student
@@ -23,11 +22,11 @@ class ShowStudentView(ShowStudentMixin, DetailView):
     pass
 
 
-class EditStudentView(EditStudentMixin, UpdateView):
-    pass
+class EditStudentView(PermissionRequiredMixin, EditStudentMixin, UpdateView):
+    permission_required = 'students.change_student'
 
 
-class CreateStudentView(EditStudentMixin, CreateView):
-    pass
+class CreateStudentView(PermissionRequiredMixin, EditStudentMixin, CreateView):
+    permission_required = 'students.add_student'
 
 
