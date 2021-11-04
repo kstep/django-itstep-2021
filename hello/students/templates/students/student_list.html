@@ -4,9 +4,6 @@
 
 {% block content %}
 <menu>
-<li><a href="{% url 'student-list' %}">
-    All students
-</a></li>
 {% if perms.students.add_student %}
 <li><a href="{% url 'student-create' %}">
     Create new student
