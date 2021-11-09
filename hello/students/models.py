@@ -17,6 +17,7 @@ class Student(models.Model):
         max_length=200)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     birthday = models.DateField()
+    room_number = models.IntegerField(null=True, default=None)
 
     @property
     def full_name(self):
