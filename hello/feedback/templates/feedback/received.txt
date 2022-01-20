@@ -1,0 +1,9 @@
+Your message was successfully delivered to manager.
+Please wait for reply.
+
+Your message was:
+
+{{ message }}
+
+---
+Your Django

@@ -41,13 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cicd',
+
+    'crispy_forms',
+    'debug_toolbar',
+
+    'rest_framework',
+
     'students',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,36 +93,19 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -133,3 +123,64 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / 'cache',
+        'TIMEOUT': 300,
+    }
+}
+
+SERVER_EMAIL = 'django@example.com'
+MANAGERS = [
+    ('Konstantin', 'milezv@gmail.com')
+]
+ADMINS = MANAGERS
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'user@gmail.com'
+EMAIL_HOST_PASSWORD = '0000000'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'loggers': {
+        'students.management.commands': {
+            'handlers': ['commands'],
+            'level': 'INFO',
+        }
+    },
+    'handlers': {
+        'commands': {
+            'class': 'logging.FileHandler',
+            'formatter': 'fancy',
+            'filename': BASE_DIR / 'command-logs.txt',
+        }
+    },
+    'formatters': {
+        'fancy': {
+            'style': '{',
+            'format': '[{levelname}] @{asctime} {message}',
+        }
+    }
+}
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+FORMAT_MODULE_PATH = [
+    'students.formats',
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

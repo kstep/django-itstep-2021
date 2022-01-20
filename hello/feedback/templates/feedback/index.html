@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Form</title>
+    <style>
+        .message {
+            border: 1px solid green;
+            margin-bottom: 3px;
+        }
+        .message-25 {
+            background: lightgreen;
+        }
+        .message-40 {
+            border-color: red;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+  {% if messages %}
+      {% for message in messages %}
+            {% if message.level > DEFAULT_MESSAGE_LEVELS.INFO %}
+          <div class="message-{{ message.level }}">{{ message }}</div>
+            {% endif %}
+      {% endfor %}
+  {% endif %}
+
+  <form method="post">
+      {% csrf_token %}
+      <table>
+          {{ form.as_table }}
+          <tr><td><input type="submit" value="Send feedback" /></td></tr>
+      </table>
+  </form>
+</body>
+</html>
