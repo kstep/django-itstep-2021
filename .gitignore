@@ -5,5 +5,7 @@ dist/
 *.egg-info/
 *.pyc
 *.pyo
+*.log
 __pycache__/
 db.sqlite3
+*.djcache

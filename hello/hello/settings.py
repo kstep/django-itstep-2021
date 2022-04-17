@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'students',
+    'feedback',
+
+    'todo',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #'students.context_processors.language',
             ],
         },
     },
@@ -184,3 +188,31 @@ FORMAT_MODULE_PATH = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'tasks': '5/min',
+        'users': '60/min',
+        'anon': '100/min',
+        'user': '200/min',
+    },
+    'SEARCH_PARAM': 'q',
+    'PAGE_SIZE': 5,
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework_xml.parsers.XMLParser',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.AdminRenderer',
+        'rest_framework_xml.renderers.XMLRenderer',
+    ],
+}
+
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TIME_LIMIT = 600
+#CELERY_RESULT_BACKEND = f"db+sqlite:///{DATABASES['default']['NAME']}"
+CELERY_RESULT_BACKEND = f"db+sqlite:///{BASE_DIR / 'celery.db'}"

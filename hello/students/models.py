@@ -1,23 +1,35 @@
+from datetime import datetime
+
+import django.contrib.contenttypes.fields
+from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models.base import ModelBase
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _, gettext
 
 
 class Group(models.Model):
-    name = models.CharField(
-        max_length=200)
+    name = models.CharField(_('Name'), max_length=200)
 
     def __str__(self):
-        return f"Group #{self.pk} {self.name}"
+        return gettext("Group #{pk} {name}").format(
+            pk=self.pk, name=self.name)
 
 
 class Student(models.Model):
     first_name = models.CharField(
-        max_length=200)
+        _('First name'),
+        max_length=200,
+        validators=[RegexValidator(r'\s', inverse_match=True), ])
+
     last_name = models.CharField(
+        _('Last name'),
         max_length=200)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    birthday = models.DateField()
-    room_number = models.IntegerField(null=True, default=None)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,
+                              verbose_name=_('Group'))
+    birthday = models.DateField(_('Birthday'))
+    room_number = models.IntegerField(_('Room number'), null=True, default=None)
+    last_modified = models.DateTimeField(_('Last modified'), auto_now=True)
 
     @property
     def full_name(self):

@@ -16,15 +16,34 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic import RedirectView
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
+
+import students.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 
-    path('', RedirectView.as_view(url=reverse_lazy('student-list'))),
+    path('todo/', include('todo.urls')),
 
-    path('students/',
-         include('students.urls')),
 
-    path('cicd/', include('cicd.urls')),
+
+    path('', RedirectView.as_view(url=reverse_lazy('todo-index'))),
+
+    path('feedback/', include('feedback.urls')),
+
+    path('i18n', include('django.conf.urls.i18n')),  # /i18n/setlang
+    path('setlang', set_language),  # /setlang
+
+    path('students/', include('students.urls')),
+
+    ##path('cicd/', include('cicd.urls')),
+
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+urlpatterns += i18n_patterns(
+)
+
+

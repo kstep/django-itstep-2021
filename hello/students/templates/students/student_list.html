@@ -1,12 +1,15 @@
 {% extends "./base.html" %}
 
-{% block title %}List of students{% endblock %}
+{% load i18n %}
+{% load l10n %}
+
+{% block title %}{% blocktranslate %}List of students{% endblocktranslate %}{% endblock %}
 
 {% block content %}
 <menu>
-{% if perms.students.add_student %}
+{% if perms.students.add_studendt %}
 <li><a href="{% url 'student-create' %}">
-    Create new student
+    {% blocktranslate %}Create new student{% endblocktranslate %}
 </a></li>
 {% endif %}
 </menu>
@@ -14,9 +17,9 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Group</th>
-        <th>Birthday</th>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "Group" %}</th>
+        <th>{% translate "Birthday" %}</th>
     </tr>
     </thead>
 
